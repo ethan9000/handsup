@@ -3,9 +3,12 @@ import { useAuthValue } from "../Auth/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { Nav } from "./nav";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const { currentUser } = useAuthValue();
+  const navigate = useNavigate();
 
   return (
     <div className="center">
@@ -21,6 +24,7 @@ function Profile() {
         </p>
         <span onClick={() => signOut(auth)}>Sign Out</span>
       </div>
+      <Button onClick={() => navigate("/new-post")}>New Post</Button>
     </div>
   );
 }

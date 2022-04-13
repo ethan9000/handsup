@@ -5,7 +5,10 @@ import Logo from "../logo.svg";
 export const Nav = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar elevation={0} style={{ background: "#fff" }}>
+      <AppBar
+        elevation={0}
+        style={{ background: "#fff", position: "relative" }}
+      >
         <Toolbar>
           <img src={Logo}></img>
           <Typography sx={{ flexGrow: 1 }}></Typography>

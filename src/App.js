@@ -9,6 +9,7 @@ import { AuthProvider } from "./Auth/AuthContext";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import PrivateRoute from "./Auth/privateRoute";
+import NewPost from "./components/newPost";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -30,6 +31,15 @@ function App() {
             element={
               <PrivateRoute>
                 <Profile />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            exact
+            path="/new-post"
+            element={
+              <PrivateRoute>
+                <NewPost />
               </PrivateRoute>
             }
           />

@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useAuthValue } from "./AuthContext";
 import { Nav } from "../components/nav";
+import { Container } from "@mui/material";
 
 export default function PrivateRoute({ children }) {
   const { currentUser } = useAuthValue();
@@ -12,7 +13,7 @@ export default function PrivateRoute({ children }) {
   return (
     <>
       <Nav />
-      {children}
+      <Container style={{ padding: "2em 0" }}>{children}</Container>
     </>
   );
 }
