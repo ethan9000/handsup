@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+.Button {
+  background-color: orange !important;
+  border-color: orange !important;
+  display: flex;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.poll {
+  display: inline-flex;
+}
