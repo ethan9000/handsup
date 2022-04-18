@@ -28,7 +28,10 @@ function App() {
 
   useEffect(() => {
     const getPosts = async () => {
-      const snapshot = await firestore.collection("posts").get();
+      const snapshot = await firestore
+        .collection("posts")
+        .orderBy("createdAt", "desc")
+        .get();
       const postSet = snapshot.docs.map(collectionIdsAndDocs);
       setPosts(postSet);
     };
