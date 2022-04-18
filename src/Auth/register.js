@@ -5,7 +5,10 @@ import { useNavigate, Link } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  getAuth,
+  updateProfile,
 } from "firebase/auth";
+
 import { useAuthValue } from "./AuthContext";
 import { Box } from "@mui/system";
 import { TextField, Button, Grid, Container } from "@mui/material";
@@ -15,6 +18,7 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { setTimeActive } = useAuthValue();
@@ -36,6 +40,11 @@ function Register() {
     if (validatePassword()) {
       // Create a new user with email and password using firebase
       createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          updateProfile(auth.currentUser, {
+            displayName: name,
+          });
+        })
         .then(() => {
           sendEmailVerification(auth.currentUser)
             .then(() => {
@@ -62,6 +71,17 @@ function Register() {
         noValidate
         sx={{ mt: 1 }}
       >
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="name"
+          label="Name"
+          name="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          autoFocus
+        />
         <TextField
           margin="normal"
           required
@@ -95,7 +115,7 @@ function Register() {
           type="password"
           id="password"
           autoComplete="current-password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setConfirmPassword(e.target.value)}
           value={confirmPassword}
         />
         <Grid container spacing={2}>
