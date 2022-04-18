@@ -28,7 +28,10 @@ function App() {
 
   useEffect(() => {
     const getPosts = async () => {
-      const snapshot = await firestore.collection("posts").get();
+      const snapshot = await firestore
+        .collection("posts")
+        .orderBy("createdAt", "desc")
+        .get();
       const postSet = snapshot.docs.map(collectionIdsAndDocs);
       setPosts(postSet);
     };
@@ -65,6 +68,15 @@ function App() {
             element={
               <PrivateRoute>
                 <Home posts={posts} updatePost={updatePost} />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            exact
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile posts={posts} updatePost={updatePost} />
               </PrivateRoute>
             }
           />
