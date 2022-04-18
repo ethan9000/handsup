@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, ProgressBar } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 
@@ -38,7 +38,13 @@ function Poll() {
                 Poll 1
               </Button>
               <div>Votes: {voteCount}</div>
-              <div>Percentage: {percentage1}%</div>
+              <div>Percentage:</div>
+              <ProgressBar
+                animated
+                variant="warning"
+                percentage1={percentage1}
+                label={`${percentage1}%`}
+              />
             </div>
 
             <div>
@@ -54,7 +60,13 @@ function Poll() {
                 Poll 2
               </Button>
               <div>Votes: {voteCount2} </div>
-              <div>Percentage: {percentage2}%</div>
+              <div>Percentage:</div>
+              <ProgressBar
+                animated
+                variant="warning"
+                percentage2={percentage2}
+                label={`${percentage2}%`}
+              />
             </div>
           </div>
         </Card.Body>
