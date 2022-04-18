@@ -73,6 +73,15 @@ function App() {
           />
           <Route
             exact
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile posts={posts} updatePost={updatePost} />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            exact
             path="/new-post"
             element={
               <PrivateRoute>
