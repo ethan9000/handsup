@@ -1,24 +1,88 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
+import Profile from "./components/Profile";
+import Register from "./Auth/register";
+import VerifyEmail from "./Auth/verifyEmail";
+import Login from "./Auth/login";
+import { useState, useEffect } from "react";
+import { AuthProvider } from "./Auth/AuthContext";
+import { auth, db } from "./firebase";
+import { doc, updateDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import PrivateRoute from "./Auth/privateRoute";
+import NewPost from "./components/newPost";
+import { firestore } from "./firebase";
+import Home from "./components/home";
+import { collectionIdsAndDocs } from "./utilities";
+import { create } from "@mui/material/styles/createTransitions";
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(null);
+  const [timeActive, setTimeActive] = useState(false);
+  const [posts, setPosts] = useState();
+
+  useEffect(() => {
+    const getPosts = async () => {
+      const snapshot = await firestore.collection("posts").get();
+      const postSet = snapshot.docs.map(collectionIdsAndDocs);
+      setPosts(postSet);
+    };
+
+    getPosts();
+    onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+  }, []);
+
+  const updatePost = async (post, object, value) => {
+    const docRef = doc(db, "posts", post);
+    await updateDoc(docRef, {
+      [object]: value,
+    });
+  };
+
+  const createPost = async (post) => {
+    const docRef = await firestore.collection("posts").add(post);
+    const doc = await docRef.get();
+
+    const newPost = collectionIdsAndDocs(doc);
+
+    setPosts([newPost, ...posts]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <AuthProvider value={{ currentUser, timeActive, setTimeActive }}>
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={
+              <PrivateRoute>
+                <Home posts={posts} updatePost={updatePost} />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            exact
+            path="/new-post"
+            element={
+              <PrivateRoute>
+                <NewPost createPost={createPost} />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
+        </Routes>
+      </AuthProvider>
+    </Router>
   );
 }
 
