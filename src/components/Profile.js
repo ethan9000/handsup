@@ -4,6 +4,8 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { Nav } from "./nav";
 import { Button } from "@mui/material";
+import { Box } from "@mui/material";
+import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { getAuth } from "firebase/auth";
@@ -46,18 +48,32 @@ function Profile({ posts, updatePost }) {
   return (
     <div className="center">
       <div className="profile">
-        <h1>Profile</h1>
-        <p>
-          <strong>Email: </strong>
-          {currentUser?.email}
-        </p>
-        <p>
-          <strong>Email verified: </strong>
-          {`${currentUser?.emailVerified}`}
-        </p>
-        <span onClick={() => signOut(auth)}>Sign Out</span>
+        <Avatar
+          alt="Remy Sharp"
+          src="https://picsum.photos/200"
+          sx={{
+            position: "absolute",
+            height: "70px",
+            width: "70px",
+            top: 110,
+            left: 190,
+          }}
+        />
+        <Box sx={{ position: "absolute", top: 100, left: 270 }}>
+          <p>
+            <h1>{user.displayName}</h1>
+          </p>
+        </Box>
+        <Button
+          sx={{ position: "absolute", top: 128, left: 1240 }}
+          color="primary"
+          variant="contained"
+          onClick={() => signOut(auth)}
+        >
+          Sign Out
+        </Button>
       </div>
-      <Container style={{ paddingTop: "2em" }}>
+      <Container style={{ paddingTop: "8rem" }}>
         <Grid container spacing={4}>
           {userPosts?.map((post) => (
             <Grid key={post.id} item xs={3}>
