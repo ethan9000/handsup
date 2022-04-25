@@ -5,11 +5,12 @@ import IconButton from "@mui/material/IconButton";
 import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import Followers from "./Followers";
 
 function NavBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar color="secondary" position="static">
+      <AppBar color="primary" position="static">
         <Toolbar>
           <IconButton
             size="large"
@@ -18,6 +19,7 @@ function NavBar() {
             aria-label="menu"
             sx={{ mr: 1 }}
           />
+          <AccountCircle size="large" sx={{ flexGrow: 1 }} />
 
           <Typography
             align="left"
@@ -25,9 +27,9 @@ function NavBar() {
             component="div"
             sx={{ flexGrow: 29 }}
           >
-            Handsup
+            Profile Name
           </Typography>
-          <AccountCircle size="large" sx={{ flexGrow: 1 }} />
+          <Followers />
         </Toolbar>
       </AppBar>
     </Box>
