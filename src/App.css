@@ -49,3 +49,8 @@
 .poll {
   display: inline-flex;
 }
+.toggle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
