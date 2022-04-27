@@ -21,7 +21,11 @@ const Post = ({ post, updatePost }) => {
   }, [post.vote_1, post.vote_2]);
 
   const handleClick = (vote) => {
+    // ACS - I'd recommend only running updatePost here and moving the rest into 
+    //       one or more useEffect() hooks
     if (vote === "vote_1") {
+      // ACS - Since the end-user updates the post counts in the db they could set 
+      //       them to any value
       updatePost(post.id, vote, post.vote_1 + 1);
       setVote1Percent(Math.round(((post.vote_1 + 1) / (total + 1)) * 100));
       setVote2Percent(Math.round((post.vote_2 / (total + 1)) * 100));

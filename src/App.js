@@ -22,6 +22,7 @@ import { collectionIdsAndDocs } from "./utilities";
 import { create } from "@mui/material/styles/createTransitions";
 
 function App() {
+  // ACS - set the default state to the same data structure as the state variable. So for example [] for posts
   const [currentUser, setCurrentUser] = useState(null);
   const [timeActive, setTimeActive] = useState(false);
   const [posts, setPosts] = useState();
