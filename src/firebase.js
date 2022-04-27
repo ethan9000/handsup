@@ -5,6 +5,9 @@ import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
+// ACS - In general I think all secrets should be kept out of repos, but
+//       Firebase recommends Security Rules instead. Make sure you understand the
+//       notes here: https://firebase.google.com/docs/projects/api-keys
 const firebaseConfig = {
   apiKey: "AIzaSyAbdpZRKedzeZ2oAFH9-_9jiOHdbQ7vHBY",
   authDomain: "handsup-88a86.firebaseapp.com",

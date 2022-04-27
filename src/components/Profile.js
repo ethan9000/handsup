@@ -14,6 +14,7 @@ import { Container, Grid, Fab } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import Post from "./post";
 
+// ACS - the posts are fetched directly from firestore so `posts` here isn't used
 function Profile({ posts, updatePost }) {
   const { currentUser } = useAuthValue();
   const navigate = useNavigate();
