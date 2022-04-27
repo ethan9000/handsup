@@ -21,6 +21,7 @@ import Home from "./components/home";
 import { collectionIdsAndDocs } from "./utilities";
 import { create } from "@mui/material/styles/createTransitions";
 import { async } from "@firebase/util";
+import UserProfile from "./components/userProfiles";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -115,6 +116,19 @@ function App() {
             element={
               <PrivateRoute>
                 <Profile posts={posts} updatePost={updatePost} />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            exact
+            path="/:id"
+            element={
+              <PrivateRoute>
+                <UserProfile
+                  posts={posts}
+                  updatePost={updatePost}
+                  updateFollowing={updateFollowing}
+                />
               </PrivateRoute>
             }
           />

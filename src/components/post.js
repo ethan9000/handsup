@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardMedia,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Post = ({
@@ -88,7 +89,7 @@ const Post = ({
     <Card>
       <CardHeader
         avatar={<Avatar src="https://picsum.photos/200" />}
-        title={post.user}
+        title={<Link to={"/" + post.userUid}>{post.user}</Link>}
         action={
           <Button onClick={() => updateFollowing(post.userUid)}>Follow</Button>
         }
