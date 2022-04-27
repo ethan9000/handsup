@@ -8,21 +8,57 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const Post = ({ post, updatePost }) => {
+const Post = ({
+  post,
+  updatePost,
+  currentUser,
+  updateFollowing,
+  following,
+}) => {
   const [total, setTotal] = useState(0);
   const [vote1Percent, setVote1Percent] = useState(0);
   const [vote2Percent, setVote2Percent] = useState(0);
   const [voteColor1, setVoteColor1] = useState();
   const [voteColor2, setVoteColor2] = useState();
   const [clicked, setClicked] = useState(false);
+  const [voted, setVoted] = useState(false);
+
+  // console.log(post.voted?.includes(currentUser.uid));
+
+  useEffect(() => {
+    console.log(post.vote_1);
+    console.log(vote1Percent);
+  }, [vote1Percent]);
 
   useEffect(() => {
     setTotal(post.vote_1 + post.vote_2);
+
+    setVoted(post.voted.includes(currentUser.uid));
+    console.log(voted);
   }, [post.vote_1, post.vote_2]);
 
+  useEffect(() => {
+    console.log("post1: " + post.vote_1);
+    console.log("post2: " + post.vote_2);
+    setVote1Percent(Math.round((post.vote_1 / total) * 100));
+    setVote2Percent(Math.round(((post.vote_2 + 1) / total) * 100));
+    if (post.vote_1 + 1 > post.vote_2) {
+      setVoteColor1("#FF5714");
+      setVoteColor2("#fff");
+    } else {
+      setVoteColor1("#FFF");
+      setVoteColor2("#FF5714");
+    }
+  }, [total]);
+
   const handleClick = (vote) => {
+    const newVote = [...post.voted, currentUser.uid];
+    console.log(newVote);
+    updatePost(post.id, "voted", newVote);
+
     if (vote === "vote_1") {
       updatePost(post.id, vote, post.vote_1 + 1);
+
       setVote1Percent(Math.round(((post.vote_1 + 1) / (total + 1)) * 100));
       setVote2Percent(Math.round((post.vote_2 / (total + 1)) * 100));
       if (post.vote_1 + 1 > post.vote_2) {
@@ -32,7 +68,7 @@ const Post = ({ post, updatePost }) => {
         setVoteColor1("#FFF");
         setVoteColor2("#FF5714");
       }
-      setClicked(true);
+      setVoted(true);
     } else {
       updatePost(post.id, vote, post.vote_2 + 1);
       setVote1Percent(Math.round((post.vote_1 / (total + 1)) * 100));
@@ -44,7 +80,7 @@ const Post = ({ post, updatePost }) => {
         setVoteColor1("#FFF");
         setVoteColor2("#FF5714");
       }
-      setClicked(true);
+      setVoted(true);
     }
   };
 
@@ -53,6 +89,9 @@ const Post = ({ post, updatePost }) => {
       <CardHeader
         avatar={<Avatar src="https://picsum.photos/200" />}
         title={post.user}
+        action={
+          <Button onClick={() => updateFollowing(post.userUid)}>Follow</Button>
+        }
       ></CardHeader>
       <CardMedia component="img" image={post.mediaURL} />
       <CardContent style={{ padding: "0" }}>
@@ -63,7 +102,7 @@ const Post = ({ post, updatePost }) => {
             textTransform: "uppercase",
           }}
         >
-          {!clicked ? (
+          {!voted ? (
             <>
               <div
                 style={{
@@ -91,7 +130,7 @@ const Post = ({ post, updatePost }) => {
           ) : (
             <></>
           )}
-          {clicked ? (
+          {voted ? (
             <>
               <div
                 style={{
