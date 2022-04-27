@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import "./forms.css";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { useNavigate, Link } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
@@ -13,6 +13,7 @@ import { useAuthValue } from "./AuthContext";
 import { Box } from "@mui/system";
 import { TextField, Button, Grid, Container } from "@mui/material";
 import Logo from "../logo.svg";
+import { doc, setDoc } from "firebase/firestore";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -48,6 +49,9 @@ function Register() {
         .then(() => {
           sendEmailVerification(auth.currentUser)
             .then(() => {
+              setDoc(doc(db, "users", auth.currentUser.uid), {
+                following: [],
+              });
               setTimeActive(true);
               navigate("/verify-email");
             })

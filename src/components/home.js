@@ -3,7 +3,13 @@ import { Add } from "@mui/icons-material";
 import Post from "./post";
 import { useNavigate } from "react-router-dom";
 
-const Home = ({ posts, updatePost }) => {
+const Home = ({
+  posts,
+  updatePost,
+  currentUser,
+  following,
+  updateFollowing,
+}) => {
   const style = {
     margin: 0,
     top: "auto",
@@ -12,7 +18,6 @@ const Home = ({ posts, updatePost }) => {
     left: "auto",
     position: "fixed",
   };
-
   const navigate = useNavigate();
   return (
     <>
@@ -20,7 +25,13 @@ const Home = ({ posts, updatePost }) => {
         <Grid container spacing={4}>
           {posts.map((post) => (
             <Grid key={post.id} item xs={12}>
-              <Post post={post} updatePost={updatePost} />
+              <Post
+                post={post}
+                updatePost={updatePost}
+                currentUser={currentUser}
+                following={following}
+                updateFollowing={updateFollowing}
+              />
             </Grid>
           ))}
         </Grid>
