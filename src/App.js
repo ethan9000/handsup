@@ -22,6 +22,7 @@ import { collectionIdsAndDocs } from "./utilities";
 import { create } from "@mui/material/styles/createTransitions";
 import { async } from "@firebase/util";
 
+
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [timeActive, setTimeActive] = useState(false);

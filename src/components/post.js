@@ -84,13 +84,17 @@ const Post = ({
     }
   };
 
+  let { updateFollowing } = this.state;
+
   return (
     <Card>
       <CardHeader
         avatar={<Avatar src="https://picsum.photos/200" />}
         title={post.user}
         action={
-          <Button onClick={() => updateFollowing(post.userUid)}>Follow</Button>
+          <Button onClick={() => updateFollowing(currentUser.uid)}>
+            Follow
+          </Button>
         }
       ></CardHeader>
       <CardMedia component="img" image={post.mediaURL} />
