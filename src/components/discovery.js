@@ -1,16 +1,16 @@
 import { Container, Grid, Fab } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import Post from "./post";
-import Toggle from "./toggle";
 import { useNavigate } from "react-router-dom";
 
-const Home = ({
+function Discovery({
   posts,
   updatePost,
   currentUser,
-  following,
   updateFollowing,
-}) => {
+  following,
+}) {
+  const navigate = useNavigate();
   const style = {
     margin: 0,
     top: "auto",
@@ -19,11 +19,10 @@ const Home = ({
     left: "auto",
     position: "fixed",
   };
-  const navigate = useNavigate();
   return (
     <>
       <Container maxWidth="xs">
-        {/* <Grid container spacing={4}>
+        <Grid container spacing={4}>
           {posts.map((post) => (
             <Grid key={post.id} item xs={12}>
               <Post
@@ -35,14 +34,7 @@ const Home = ({
               />
             </Grid>
           ))}
-        </Grid> */}
-        <Toggle
-          posts={posts}
-          updatePost={updatePost}
-          currentUser={currentUser}
-          following={following}
-          updateFollowing={updateFollowing}
-        />
+        </Grid>
       </Container>
       <Fab
         onClick={() => navigate("/new-post")}
@@ -54,6 +46,5 @@ const Home = ({
       </Fab>
     </>
   );
-};
-
-export default Home;
+}
+export default Discovery;

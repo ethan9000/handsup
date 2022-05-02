@@ -13,13 +13,16 @@ import { collectionIdsAndDocs } from "../utilities";
 import { Container, Grid, Fab, Avatar, Box } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import Post from "./post";
+import { useParams } from "react-router-dom";
 
-function Profile({ posts, updatePost }) {
+function UserProfile({ posts, updatePost, updateFollowing }) {
   const { currentUser } = useAuthValue();
   const navigate = useNavigate();
   const [userPosts, setUserPosts] = useState([]);
+  const [userName, setUserName] = useState();
   const auth = getAuth();
   const user = auth.currentUser;
+  const { id } = useParams();
   console.log(user);
   const style = {
     margin: 0,
@@ -34,9 +37,10 @@ function Profile({ posts, updatePost }) {
     const getUserPosts = async () => {
       const snapshot = await firestore
         .collection("posts")
-        .where("userUid", "==", user.uid)
+        .where("userUid", "==", id)
         .get();
       const postSet = snapshot.docs.map(collectionIdsAndDocs);
+      setUserName(postSet[0].user);
       setUserPosts(postSet);
     };
 
@@ -59,16 +63,16 @@ function Profile({ posts, updatePost }) {
         />
         <Box sx={{ position: "absolute", top: 100, left: 270 }}>
           <p>
-            <h1>{user.displayName}</h1>
+            <h1>{userName}</h1>
           </p>
         </Box>
         <Button
           sx={{ position: "absolute", top: 128, left: 1240 }}
           color="primary"
           variant="contained"
-          onClick={() => signOut(auth)}
+          onClick={() => updateFollowing(id)}
         >
-          Sign Out
+          Follow
         </Button>
       </div>
       <Container style={{ paddingTop: "12em" }}>
@@ -96,4 +100,4 @@ function Profile({ posts, updatePost }) {
   );
 }
 
-export default Profile;
+export default UserProfile;
