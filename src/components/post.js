@@ -84,7 +84,7 @@ const Post = ({
     }
   };
 
-  let { updateFollowing } = this.state;
+  //{this.state.isToggleOn ? "Follow : "Following}
 
   return (
     <Card>
@@ -93,7 +93,7 @@ const Post = ({
         title={post.user}
         action={
           <Button onClick={() => updateFollowing(currentUser.uid)}>
-            Follow
+            follow
           </Button>
         }
       ></CardHeader>
