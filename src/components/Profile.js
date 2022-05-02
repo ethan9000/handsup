@@ -71,7 +71,7 @@ function Profile({ posts, updatePost }) {
           Sign Out
         </Button>
       </div>
-      <Container style={{ paddingTop: "2em" }}>
+      <Container style={{ paddingTop: "12em" }}>
         <Grid container spacing={4}>
           {userPosts?.map((post) => (
             <Grid key={post.id} item xs={3}>
