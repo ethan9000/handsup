@@ -128,6 +128,7 @@ function App() {
                   posts={posts}
                   updatePost={updatePost}
                   updateFollowing={updateFollowing}
+                  following={following}
                 />
               </PrivateRoute>
             }

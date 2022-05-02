@@ -15,7 +15,7 @@ import { Add } from "@mui/icons-material";
 import Post from "./post";
 import { useParams } from "react-router-dom";
 
-function UserProfile({ posts, updatePost, updateFollowing }) {
+function UserProfile({ posts, updatePost, updateFollowing, following }) {
   const { currentUser } = useAuthValue();
   const navigate = useNavigate();
   const [userPosts, setUserPosts] = useState([]);
@@ -32,6 +32,15 @@ function UserProfile({ posts, updatePost, updateFollowing }) {
     left: "auto",
     position: "fixed",
   };
+
+  const [currentFollowing, setCurrentFollowing] = useState(false);
+  // console.log(post.voted?.includes(currentUser.uid));
+
+  useEffect(() => {
+    if (following?.includes(id)) {
+      setCurrentFollowing(true);
+    }
+  }, []);
 
   useEffect(() => {
     const getUserPosts = async () => {
@@ -66,14 +75,25 @@ function UserProfile({ posts, updatePost, updateFollowing }) {
             <h1>{userName}</h1>
           </p>
         </Box>
-        <Button
-          sx={{ position: "absolute", top: 128, left: 1240 }}
-          color="primary"
-          variant="contained"
-          onClick={() => updateFollowing(id)}
-        >
-          Follow
-        </Button>
+        {currentFollowing ? (
+          <Button
+            sx={{ position: "absolute", top: 128, left: 1240 }}
+            color="primary"
+            variant="contained"
+            disabled
+          >
+            Following
+          </Button>
+        ) : (
+          <Button
+            sx={{ position: "absolute", top: 128, left: 1240 }}
+            color="primary"
+            variant="contained"
+            onClick={() => updateFollowing(id)}
+          >
+            Follow
+          </Button>
+        )}
       </div>
       <Container style={{ paddingTop: "12em" }}>
         <Grid container spacing={4}>
@@ -83,6 +103,7 @@ function UserProfile({ posts, updatePost, updateFollowing }) {
                 post={post}
                 updatePost={updatePost}
                 currentUser={currentUser}
+                following={following}
               />
             </Grid>
           ))}

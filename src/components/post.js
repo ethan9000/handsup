@@ -27,7 +27,7 @@ const Post = ({
   // console.log(post.voted?.includes(currentUser.uid));
 
   useEffect(() => {
-    if (following.includes(post.userUid)) {
+    if (following?.includes(post.userUid)) {
       setCurrentFollowing(true);
     }
   }, []);
