@@ -23,8 +23,14 @@ const Post = ({
   const [voteColor2, setVoteColor2] = useState();
   const [clicked, setClicked] = useState(false);
   const [voted, setVoted] = useState(false);
-
+  const [currentFollowing, setCurrentFollowing] = useState(false);
   // console.log(post.voted?.includes(currentUser.uid));
+
+  useEffect(() => {
+    if (following.includes(post.userUid)) {
+      setCurrentFollowing(true);
+    }
+  }, []);
 
   useEffect(() => {
     console.log(post.vote_1);
@@ -91,7 +97,13 @@ const Post = ({
         avatar={<Avatar src="https://picsum.photos/200" />}
         title={<Link to={"/" + post.userUid}>{post.user}</Link>}
         action={
-          <Button onClick={() => updateFollowing(post.userUid)}>Follow</Button>
+          currentFollowing ? (
+            <Button disabled>Following</Button>
+          ) : (
+            <Button onClick={() => updateFollowing(post.userUid)}>
+              Follow
+            </Button>
+          )
         }
       ></CardHeader>
       <CardMedia component="img" image={post.mediaURL} />
