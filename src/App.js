@@ -92,7 +92,12 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router
+      basename={window.location.pathname.substr(
+        0,
+        window.location.pathname.lastIndexOf("/")
+      )}
+    >
       <AuthProvider value={{ currentUser, timeActive, setTimeActive }}>
         <Routes>
           <Route

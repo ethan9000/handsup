@@ -39,8 +39,7 @@ const Post = ({
 
   useEffect(() => {
     setTotal(post.vote_1 + post.vote_2);
-
-    setVoted(post.voted.includes(currentUser.uid));
+    setVoted(post.voted?.includes(currentUser.uid));
     console.log(voted);
   }, [post.vote_1, post.vote_2]);
 
