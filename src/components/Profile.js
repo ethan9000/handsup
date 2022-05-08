@@ -44,34 +44,37 @@ function Profile({ posts, updatePost }) {
   }, []);
 
   return (
-    <div className="center">
-      <div className="profile">
-        <Avatar
-          alt="Remy Sharp"
-          src="https://picsum.photos/200"
-          sx={{
-            position: "absolute",
-            height: "70px",
-            width: "70px",
-            top: 110,
-            left: 190,
-          }}
-        />
-        <Box sx={{ position: "absolute", top: 100, left: 270 }}>
+    <Container>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Box sx={{ display: "flex", gap: "10px", alignItems: "center" }}>
+          <Avatar
+            alt="Remy Sharp"
+            src="https://picsum.photos/200"
+            sx={{
+              height: "70px",
+              width: "70px",
+            }}
+          />
+
           <p>
             <h1>{user.displayName}</h1>
           </p>
         </Box>
         <Button
-          sx={{ position: "absolute", top: 128, left: 1240 }}
           color="primary"
           variant="contained"
           onClick={() => signOut(auth)}
         >
           Sign Out
         </Button>
-      </div>
-      <Container style={{ paddingTop: "12em" }}>
+      </Box>
+      <Container style={{ paddingTop: "6em" }}>
         <Grid container spacing={4}>
           {userPosts?.map((post) => (
             <Grid key={post.id} item xs={3}>
@@ -92,7 +95,7 @@ function Profile({ posts, updatePost }) {
       >
         <Add />
       </Fab>
-    </div>
+    </Container>
   );
 }
 
