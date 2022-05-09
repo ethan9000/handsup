@@ -84,6 +84,7 @@ const Post = ({
     }
   };
 
+<<<<<<< HEAD
   const ToggleFollow = () => {
     const [isFollowing, setIsFollowing] = useState(false);
     return (
@@ -92,6 +93,9 @@ const Post = ({
       </button>
     );
   };
+=======
+  //{this.state.isToggleOn ? "Follow : "Following}
+>>>>>>> 26bcf3e50af10ad87b529042163f6a43e5a2b1bd
 
   return (
     <Card>
@@ -99,8 +103,13 @@ const Post = ({
         avatar={<Avatar src="https://picsum.photos/200" />}
         title={post.user}
         action={
+<<<<<<< HEAD
           <Button onClick={() => updateFollowing(post.userUid)}>
             {ToggleFollow}
+=======
+          <Button onClick={() => updateFollowing(currentUser.uid)}>
+            follow
+>>>>>>> 26bcf3e50af10ad87b529042163f6a43e5a2b1bd
           </Button>
         }
       ></CardHeader>
